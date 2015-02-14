@@ -26,7 +26,16 @@ public class FlowDef {
         flowBuilder.viewNode(firstFlowId, "/firstFlow.xhtml").markAsStartNode();
         flowBuilder.viewNode(secondFlowId, "/secondFlow.xhtml");
         //not work redirect
-        flowBuilder.navigationCase().fromOutcome(firstFlowId).toViewId("/secondFlow.xhtml").redirect();
+        //flowBuilder.navigationCase()
+        //      .fromOutcome(firstFlowId)
+        //      .toViewId("/secondFlow.xhtml")
+        //      .redirect();
+        //work redirect thank you for info http://odashinsuke.hatenablog.com/entry/2015/02/14/093422
+        flowBuilder.navigationCase()
+                .fromViewId("/firstFlow.xhtml")
+                .fromAction(secondFlowId)  // or .fromOutcome(secondFlowId)
+                .toViewId("secondFlow.xhtml")
+                .redirect();
         return flowBuilder.getFlow();
     }
 }
